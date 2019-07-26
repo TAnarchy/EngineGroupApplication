@@ -1,0 +1,268 @@
+exports.handler = async (event) => {
+    // TODO implement
+    
+    function processPuzzle(pzlValue)
+{
+	
+let puzzleValue=pzlValue
+class Node{
+    constructor(data, next = null){
+        this.data = data,
+        this.next = next
+    }
+}
+
+let aNode = new Node("A")
+let bNode = new Node("B")
+let cNode = new Node("C")
+let dNode = new Node("D")
+
+let allNodes = [aNode,bNode,cNode,dNode]
+
+puzzleValue=puzzleValue.replace(/\n/g, " ");
+puzzleValue=puzzleValue.replace(/\s\s+/g, ' ');
+
+let puzzleValueArrayByLetter = puzzleValue.substring(31,55).split(" ")
+
+
+for (indeK=0;indeK<puzzleValueArrayByLetter.length;indeK++)
+{
+element=puzzleValueArrayByLetter[indeK]
+
+
+var i=1;
+var z=0
+
+	while (i<element.length)
+	{
+		if (element[i]=='>')  
+		{
+			z=i;
+			allNodes[indeK].next = allNodes[i-1]
+			i=z
+		}
+		else
+		if (element[i]=='<')
+		{
+			z=i
+			allNodes[i-1].next = allNodes[indeK]
+			i=z
+		}
+		i++;
+	}
+	
+}
+
+let firstNodeFinder = [aNode,bNode,cNode,dNode]
+
+class Results{
+	constructor(myLetter)
+	{
+		this.myLetter=myLetter
+		this.myResults=["-","-","-","-"]
+	}
+	
+	placeEquals(forEquals)
+	{
+		if ((this.myLetter=="A" && forEquals==0)||(this.myLetter=="B" && forEquals==1)||(this.myLetter=="C" && forEquals==2)||(this.myLetter=="D" && forEquals==3))
+		{
+			return true
+		}
+		return false;
+	}
+	
+	toString()
+	{
+		return this.myLetter +this.myResults[0]+this.myResults[1]+this.myResults[2]+this.myResults[3]+"\n"
+	}
+}
+
+function indexToLetterMapping(indxValue)
+{
+	switch(indxValue){
+		
+		case 0:
+		return "A"
+		break;
+		
+		case 1:
+		return "B"
+		break;
+		
+		case 2:
+		return "C"
+		break;
+		
+		case 3:
+		return "D"
+		break;
+	}
+	return "A"
+}
+
+function compareLetters(firstLetter,secondLetter)
+{
+	let returnValue=""
+	for (index=0;index<firstNodeFinder.length;index++)
+	{
+	element=firstNodeFinder[index]
+
+		if (element.data==firstLetter){
+			if(element.next==null || element.next.data==secondLetter)
+			{
+				if (element.next==null)
+				{
+					returnValue="<"
+				}
+				else
+				if (element.next.data==secondLetter)
+				{
+					returnValue=">"
+				}
+				
+			}
+			else 
+			if (element.next.next == null || element.next.next.data==secondLetter)
+			{
+				if (element.next.next==null)
+				{
+					returnValue="<"
+				}
+				else
+				if (element.next.next.data==secondLetter)
+				{
+					returnValue=">"
+				}
+			}
+			else 
+			if (element.next.next.next == null || element.next.next.next.data==secondLetter)
+			{
+				if (element.next.next.next==null)
+				{
+					returnValue="<"
+				}
+				else
+				if (element.next.next.next.data==secondLetter)
+				{
+					returnValue=">"
+				}
+			}
+			
+		}		
+		
+	}
+	return returnValue
+	
+}
+
+
+function fillForm(resultsObject)
+{
+
+for (indexA=0;indexA<resultsObject.myResults.length;indexA++)
+	{
+		element=resultsObject.myResults[indexA]
+		if (resultsObject.placeEquals(indexA))
+		{
+			resultsObject.myResults[indexA]="="
+		}
+		else
+		{
+			resultsObject.myResults[indexA]= compareLetters(resultsObject.myLetter,indexToLetterMapping(indexA))
+		}
+	}
+	
+}
+
+
+let AResults=new Results("A")
+let BResults=new Results("B")
+let CResults=new Results("C")
+let DResults=new Results("D")
+
+fillForm(AResults)
+fillForm(BResults)
+fillForm(CResults)
+fillForm(DResults)
+
+
+
+return " ABCD\n"+AResults.toString()+BResults.toString()+CResults.toString()+DResults.toString()
+}
+
+    
+    let toReturn ="OK"
+    let incoming=event["queryStringParameters"]['d']
+    
+    
+    if (incoming.includes("full name"))
+    {
+        toReturn="Artiom Fine"
+    }
+    else
+    if (incoming.includes("email address"))
+    {
+        toReturn="artiom.fine@gmail.com"
+    }
+     else
+    if (incoming.includes("Please provide a phone number we can use to reach you"))
+    {
+        toReturn="(631)748-5542"
+    }
+     else
+    if (incoming.includes("Which position are you applying for"))
+    {
+        toReturn="Integration Engineer"
+    }
+     else
+    if (incoming.includes("How many years of software development experience do you have"))
+    {
+        toReturn="4 years of Development + 4 years of Sales/Solutions/Integrations Engineer"
+    }
+     else
+    if (incoming.includes("How did you hear about this position"))
+    {
+        toReturn="LinkedIN (I think)"
+    }
+     else
+    if (incoming.includes("Please list your relevant university degr"))
+    {
+        toReturn="BS in Computer Science"
+    }
+     else
+    if (incoming.includes("Please provide a URL where we can download your resume and cover "))
+    {
+        toReturn="https://www.linkedin.com/in/artiom-f-2756591a/"
+    }
+     else
+    if (incoming.includes("Please provide a URL where we can download the source code of you"))
+    {
+        toReturn="TBD"
+    }
+     else
+    if (incoming.includes("eligibility to work in the US"))
+    {
+        toReturn="YES"
+    }
+     else
+    if (incoming.includes("Please return OK"))
+    {
+        toReturn="OK"
+    }
+     else
+    if (incoming.includes("Please solve this puzzle"))
+    {
+        
+  
+		incoming=incoming.replace(/\n/g, " ");
+		incoming=incoming.replace(/\s\s+/g, ' ');
+      
+        toReturn=processPuzzle(incoming)
+    }
+    
+    const response = {
+        statusCode: 200,
+        body: toReturn,
+    };
+    return response;
+};
