@@ -222,7 +222,7 @@ return " ABCD\n"+AResults.toString()+BResults.toString()+CResults.toString()+DRe
      else
     if (incoming.includes("How did you hear about this position"))
     {
-        toReturn="LinkedIN (I think)"
+        toReturn="LinkedIn (I think)"
     }
      else
     if (incoming.includes("Please list your relevant university degr"))
@@ -237,7 +237,7 @@ return " ABCD\n"+AResults.toString()+BResults.toString()+CResults.toString()+DRe
      else
     if (incoming.includes("Please provide a URL where we can download the source code of you"))
     {
-        toReturn="TBD"
+        toReturn="https://github.com/TAnarchy/EngineGroupApplication/tree/master"
     }
      else
     if (incoming.includes("eligibility to work in the US"))
